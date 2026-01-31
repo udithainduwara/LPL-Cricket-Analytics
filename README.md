@@ -25,5 +25,21 @@
 
 -The function(save_jsonl) saves the records to a JSONL file by writing one JSON object per line.
 
-- lastly if __name__ == "__main__": means the comments will be fetched only when I run the file directly, not when I import it.       
+# Week 2 - create tables
+
+## Firebase Realtime Database(NOSQL)
+- Firebase requires json file type, so I merged two files(jsonl type) into one json.
+- I create database(LPLCricketAnalytics) and Upload json data into Firebase using python(`json` and `firebase_admin` libraries).
+- Provides real-time access to fan comments for analytics.
+
+## PostgreSQL Database(SQL)
+- create tables using **SQLAlchemy ORM**:
+    - `Match` - match details
+    - `MatchPlayer` - players per match and uniqueness constraints
+    - `Delivery` - ball-by-ball events(runs, extra, wickets)
+- Added indexes and constraints for efficient queries.
+- Define relationship between tables for ORM access.
+ 
+
+       
  
