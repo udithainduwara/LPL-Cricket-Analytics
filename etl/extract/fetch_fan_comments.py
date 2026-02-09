@@ -10,13 +10,11 @@ if not API_KEY:
     raise ValueError("API_KEY not found. Put API_KEY=YOUR_KEY in your .env file.")
  
 VIDEO_ID = "hixu_l5xT6s"                                # In address bar after "=" parts is a video id 
-OUTPUT_JSONL = "lpl_youtube_comments.jsonl"
-
-
+OUTPUT_JSONL = r"C:\Users\user\Desktop\CREATING project\CricketAnalytics\data\LPL_2024\raw\fan_comments_jasonl\lpl_youtube_comments.jsonl" 
 FIXED = {
     "tournament": "LPL",
     "season": 2024,
-    "platform": "Youtube",
+    "platform":"Youtube",
     "language": "en",
     "collected_at": "2026-01-24"
 }
@@ -34,16 +32,16 @@ def classify_sentiment(text):
 
     anger_words = ["hate", "stupid", "idiot", "trash", "worst", "pathetic", "angry", "shame on", "disgusting"]
     sarcasm_markers = ["yeah right", "sure", "lol", "lmao", "as if", "nice one", "/s"]
-    disappointment_words = ["sad", "unlucky", "heartbroken", "pain", "disappointed", "missed", "lost", "couldn't", "can't believe"]
+    disappointment_words = ["sad", "unlucky", "heartbroken", "pain","disappointed", "missed", "lost","couldn't", "can't believe"]
     frustration_words = ["why", "should have", "could have", "waste", "bad decision", "not fair", "rigged"]
-    pride_words = ["proud", "on the top", "number 1", "no.1", "king", "great achievement", "record"]
-    joy_words = ["congrats", "congratulations", "happy", "love", "champion", "trophy", "yay"]
-    excitement_words = ["wow", "unreal", "insane", "fire", "lit", "goat", "legend", "best", "amazing", "brilliant"]
+    pride_words = ["proud", "on the top","number 1", "no.1", "king", "great achievement", "record"]
+    joy_words = ["congrats", "congratulations", "happy", "love", "champion","trophy", "yay"]
+    excitement_words = ["wow", "unreal", "insane", "fire",  "lit", "goat", "legend", "best", "amazing", "brilliant"]
 
     if any(w in t for w in anger_words):
         return "anger"
     if any(w in t for w in sarcasm_markers):
-        return "sarcasm"
+        return"sarcasm"
     if any(w in t for w in disappointment_words):
         return "disappointment"
     if any(w in t for w in frustration_words):
@@ -55,7 +53,7 @@ def classify_sentiment(text):
     if any(w in t for w in excitement_words):
         return "excitement"
 
-    return "neutral"
+    return"neutral"
 
  
 def fetch_comments(video_id, api_key):
@@ -70,8 +68,8 @@ def fetch_comments(video_id, api_key):
             videoId=video_id,
             maxResults=100,
             pageToken=next_page_token,
-            textFormat="plainText",
-            order="time"
+            textFormat = "plainText",
+            order = "time"
         )
         response = request.execute()
 
@@ -79,17 +77,17 @@ def fetch_comments(video_id, api_key):
             top = item["snippet"]["topLevelComment"]
             snip = top["snippet"]
 
-            comment_id = top["id"]
-            comment_text = snip.get("textDisplay", "")
-            author_name = snip.get("authorDisplayName", "")
-            created_at = snip.get("publishedAt", "")
-            post_url = f"https://www.youtube.com/watch?v={video_id}&lc={comment_id}"
+            comment_id =top["id"]
+            comment_text =snip.get("textDisplay", "")
+            author_name =snip.get("authorDisplayName", "")
+            created_at =snip.get("publishedAt", "")
+            post_url =f"https://www.youtube.com/watch?v={video_id}&lc={comment_id}"
 
             record = {
                 **FIXED,
                 "comment_text": comment_text,
                 "author_name": author_name,
-                "sentiment": classify_sentiment(comment_text),
+                "sentiment" : classify_sentiment(comment_text),
                 "created_at": created_at,
                 "post_url": post_url
             }
@@ -103,19 +101,19 @@ def fetch_comments(video_id, api_key):
 
  
 def save_jsonl(path, records):
-    with open(path, "w", encoding="utf-8") as f:
+    with open(path,"w",encoding="utf-8") as f:
         for r in records:
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
 
  
-if __name__ == "__main__":                  
+if __name__ == "__main__": 
     data = fetch_comments(VIDEO_ID, API_KEY)         #This means the comments will be fetched only when I run the file directly, not when I import it.       
 
     save_jsonl(OUTPUT_JSONL, data)
     
 
-    print("Done!")
-    print("Total comments:", len(data))
-    print("Saved JSONL:", OUTPUT_JSONL)
+    print("Done")
+    print("Total comments: ", len(data))
+ 
   
  

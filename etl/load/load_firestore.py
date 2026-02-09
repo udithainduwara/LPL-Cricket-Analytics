@@ -6,7 +6,7 @@ cred = credentials.Certificate(r"C:\Users\user\Desktop\CREATING project\CricketA
 firebase_admin.initialize_app(cred, {"databaseURL": "https://lplcricketanalytics-default-rtdb.firebaseio.com/"})
 
 
-with open(r"C:\Users\user\Desktop\CREATING project\CricketAnalytics\data\fan_comments LPL2024\LPL_fan_comments.json", "r") as f:
+with open(r"C:\Users\user\Desktop\CREATING project\CricketAnalytics\data\LPL_2024\Processed\fan_comments_jason\LPL_fan_comments.json", "r") as f:
     LPL_fan_comments = json.load(f)
 
 ref = db.reference("/LPL_fan_comments")
