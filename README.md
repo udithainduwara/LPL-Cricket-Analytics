@@ -39,7 +39,16 @@
     - `Delivery` - ball-by-ball events(runs, extra, wickets)
 - Added indexes and constraints for efficient queries.
 - Define relationship between tables for ORM access.
+
+# week 3 - convert & clean json files to csv files 
  
+- Converted **25 ball-by-ball JSON files** into **3 CSVs**: `matches.csv`, `match_players.csv`, `deliveries.csv`.
+- Used nested loops (innings → overs → deliveries) and `enumerate()` for innings numbers.
+- Handled missing values using `int_or_none()` and `int_or_0()`.
+- Used `json`, `glob`, `os`, and `pandas`.
+- Used `glob` to automatically load all **25** `*.json` match files from the input folder (no need to type file names manually). 
+- Matched CSV column names with my **SQLAlchemy** database tables.
+- Changed `match_id` to **autoincrement = False** (PK/FK consistency) and used unique JSON match IDs. 
 
        
  
