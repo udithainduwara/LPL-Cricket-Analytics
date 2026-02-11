@@ -6,4 +6,4 @@ engine = create_engine(DB_URL, future=True)
 
 Base.metadata.drop_all(bind=engine)
 
-print("DONE ✅ Tables dropped")
+print("DONE Tables dropped")
