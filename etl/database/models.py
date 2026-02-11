@@ -7,7 +7,7 @@ class Base(DeclarativeBase):
 class Match(Base):
     __tablename__ = "matches"
 
-    match_id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    match_id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=False)
 
     season_year: Mapped[int | None] = mapped_column(Integer, nullable=True)
     
@@ -83,7 +83,7 @@ class Delivery(Base):
     wicket: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
     player_out: Mapped[str | None] = mapped_column(String(120), nullable=True)
     
-    dismissal_kind: Mapped[str | None] = mapped_column(String(120), nullable=True)    #type of out
+    wicket_type: Mapped[str | None] = mapped_column(String(120), nullable=True)    #type of out
    
 
 #Link deliveries to its match for python ORM access 
