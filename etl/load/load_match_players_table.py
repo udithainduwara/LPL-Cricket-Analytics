@@ -31,7 +31,7 @@ def load_match_players_csv(csv_path: str, engine):
                     session.rollback()
                 except Exception as error:
                     session.rollback()
-                    print("Bad row: ", error)    
+                    print(f"This row {r} has error {error}.")    
 
             
 
